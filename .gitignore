@@ -1,0 +1,57 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+*.pyd
+*.pdb
+*.egg-info/
+.Python
+env/
+venv/
+.venv/
+ENV/
+.env
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+*.log
+
+# Jupyter
+.ipynb_checkpoints/
+*.nbconvert.ipynb
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# Data
+/data/raw/*
+/data/processed/*
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+
+# Model artifacts
+/models/*.pkl
+/models/*.joblib
+/models/*.h5
+/models/*.onnx
+/models/*.sav
+/models/*.pickle
+
+# Application cache and artifacts
+*.cache
+*.tmp
+*.temp
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.out
+*.err
+
+# Test artifacts
+coverage/
