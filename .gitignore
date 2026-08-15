@@ -1,4 +1,7 @@
+# ============================================
 # Python
+# ============================================
+
 __pycache__/
 *.py[cod]
 *$py.class
@@ -7,32 +10,64 @@ __pycache__/
 *.pdb
 *.egg-info/
 .Python
+
+# Virtual environments
 env/
 venv/
 .venv/
 ENV/
+
+# Environment variables / secrets
 .env
+.env.*
+!.env.example
+
+# Python testing / coverage
 .pytest_cache/
 .coverage
 coverage.xml
 htmlcov/
-*.log
 
+# Logs
+*.log
+*.out
+*.err
+
+
+# ============================================
 # Jupyter
+# ============================================
+
 .ipynb_checkpoints/
 *.nbconvert.ipynb
 
+
+# ============================================
 # VS Code
+# ============================================
+
 .vscode/
 *.code-workspace
 
+
+# ============================================
 # Data
+# ============================================
+
+# Raw and processed datasets
 /data/raw/*
 /data/processed/*
+
+# Keep directory placeholders
 !data/raw/.gitkeep
 !data/processed/.gitkeep
 
-# Model artifacts
+
+# ============================================
+# Model Artifacts
+# ============================================
+
+# Trained models
 /models/*.pkl
 /models/*.joblib
 /models/*.h5
@@ -40,18 +75,67 @@ htmlcov/
 /models/*.sav
 /models/*.pickle
 
-# Application cache and artifacts
+# Generated processed matrices / datasets
+/models/*.npz
+/models/*.csv
+
+# Keep directory placeholder
+!models/.gitkeep
+
+
+# ============================================
+# Application Cache / Temporary Files
+# ============================================
+
 *.cache
 *.tmp
 *.temp
 
-# System files
+# Streamlit cache
+.streamlit/cache/
+.streamlit/secrets.toml
+
+
+# ============================================
+# Build / Distribution
+# ============================================
+
+build/
+dist/
+*.egg
+*.whl
+
+
+# ============================================
+# Operating System
+# ============================================
+
 .DS_Store
 Thumbs.db
+Desktop.ini
 
-# Logs
-*.out
-*.err
 
-# Test artifacts
+# ============================================
+# IDE / Editor Temporary Files
+# ============================================
+
+*.swp
+*.swo
+*~
+.idea/
+
+
+# ============================================
+# Test Artifacts
+# ============================================
+
 coverage/
+.pytest_cache/
+
+
+# ============================================
+# Miscellaneous
+# ============================================
+
+*.bak
+*.orig
