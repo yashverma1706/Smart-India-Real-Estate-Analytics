@@ -1,11 +1,5 @@
-import streamlit as st
+﻿import streamlit as st
 
 
 st.title("📊 Analytics")
-
-st.write(
-    "Real estate analytics and visualizations "
-    "will be integrated here."
-)
-
-st.info("Analytics data will be connected later.")
+st.write("Property analytics — coming in Milestone 4.")
