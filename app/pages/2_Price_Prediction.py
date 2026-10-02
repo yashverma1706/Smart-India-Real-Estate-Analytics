@@ -2,7 +2,6 @@
 
 from src.models.model_service import get_predicted_price
 
-
 # =========================================================
 # Page Configuration
 # =========================================================
@@ -12,6 +11,152 @@ st.set_page_config(
     page_icon="💰",
     layout="wide",
 )
+
+# =========================================================
+# Custom Styling
+# =========================================================
+
+st.markdown(
+    """
+    <style>
+
+    /* Primary prediction button */
+    div.stButton > button[kind="primary"] {
+        background: #2563eb;
+        color: white;
+        border: 1px solid #2563eb;
+        border-radius: 10px;
+        padding: 0.65rem 1.4rem;
+        font-weight: 700;
+        font-size: 0.95rem;
+        transition: all 0.2s ease;
+    }
+
+    div.stButton > button[kind="primary"]:hover {
+        background: #1d4ed8;
+        border-color: #1d4ed8;
+        color: white;
+    }
+
+
+    /* Valuation card */
+    .valuation-card {
+        margin-top: 1.5rem;
+        padding: 2.2rem;
+        border-radius: 18px;
+        background: linear-gradient(
+            145deg,
+            #111827,
+            #172554
+        );
+        border: 1px solid #2563eb;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    }
+
+
+    /* Card heading */
+    .valuation-label {
+        text-align: center;
+        color: #60a5fa;
+        font-size: 0.85rem;
+        font-weight: 700;
+        letter-spacing: 2px;
+        margin-bottom: 0.6rem;
+    }
+
+
+    /* Price */
+    .valuation-price {
+        text-align: center;
+        color: white;
+        font-size: 3rem;
+        font-weight: 800;
+        line-height: 1.2;
+        margin-bottom: 0.4rem;
+    }
+
+
+    /* Subtitle */
+    .valuation-subtitle {
+        text-align: center;
+        color: #cbd5e1;
+        font-size: 1rem;
+    }
+
+
+    /* Divider */
+    .valuation-divider {
+        height: 1px;
+        background: #334155;
+        margin: 2rem 0 1.5rem 0;
+    }
+
+
+    /* Property information grid */
+    .property-grid {
+        display: grid;
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr));
+        gap: 1rem;
+    }
+
+
+    /* Individual property item */
+    .property-item {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid #334155;
+        border-radius: 12px;
+        padding: 1rem;
+    }
+
+
+    /* Icon */
+    .property-icon {
+        font-size: 1.2rem;
+        margin-bottom: 0.4rem;
+    }
+
+
+    /* Label */
+    .property-label {
+        color: #94a3b8;
+        font-size: 0.78rem;
+        margin-bottom: 0.25rem;
+    }
+
+
+    /* Value */
+    .property-value {
+        color: white;
+        font-size: 0.95rem;
+        font-weight: 600;
+        word-break: break-word;
+    }
+
+
+    /* Responsive layout */
+    @media (max-width: 768px) {
+
+        .valuation-card {
+            padding: 1.4rem;
+        }
+
+        .valuation-price {
+            font-size: 2.2rem;
+        }
+
+        .property-grid {
+            grid-template-columns: 1fr;
+        }
+
+    }
+
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
+
+
 
 
 # =========================================================
@@ -128,9 +273,7 @@ if predict_button:
 
         try:
 
-            predicted_price = get_predicted_price(
-                property_data
-            )
+            predicted_price = get_predicted_price(property_data)
 
             # ---------------------------------------------
             # Format Price
@@ -155,22 +298,109 @@ if predict_button:
                 )
 
             # ---------------------------------------------
-            # Display Result
+            # Success Message
             # ---------------------------------------------
 
             st.success("Prediction generated successfully.")
 
-            st.subheader("Estimated Property Price")
+            # ---------------------------------------------
+            # Property Valuation Card
+            # ---------------------------------------------
 
-            st.metric(
-                label="Model-Estimated Price",
-                value=formatted_price,
+            st.html(
+                f"""
+                <div class="valuation-card">
+
+                    <div class="valuation-label">
+                        PROPERTY VALUATION
+                    </div>
+
+                    <div class="valuation-price">
+                        {formatted_price}
+                    </div>
+
+                    <div class="valuation-subtitle">
+                        Estimated Property Price
+                    </div>
+
+                    <div class="valuation-divider"></div>
+
+                    <div class="property-grid">
+
+                        <div class="property-item">
+                            <div class="property-icon">📍</div>
+                            <div class="property-label">
+                                Location
+                            </div>
+                            <div class="property-value">
+                                {location.strip()}
+                            </div>
+                        </div>
+
+                        <div class="property-item">
+                            <div class="property-icon">🏠</div>
+                            <div class="property-label">
+                                Property
+                            </div>
+                            <div class="property-value">
+                                {property_title.strip()}
+                            </div>
+                        </div>
+
+                        <div class="property-item">
+                            <div class="property-icon">📐</div>
+                            <div class="property-label">
+                                Total Area
+                            </div>
+                            <div class="property-value">
+                                {total_area:,.0f} sq ft
+                            </div>
+                        </div>
+
+                        <div class="property-item">
+                            <div class="property-icon">🛁</div>
+                            <div class="property-label">
+                                Bathrooms
+                            </div>
+                            <div class="property-value">
+                                {baths}
+                            </div>
+                        </div>
+
+                        <div class="property-item">
+                            <div class="property-icon">🌿</div>
+                            <div class="property-label">
+                                Balcony
+                            </div>
+                            <div class="property-value">
+                                {balcony}
+                            </div>
+                        </div>
+
+                        <div class="property-item">
+                            <div class="property-icon">🤖</div>
+                            <div class="property-label">
+                                Model
+                            </div>
+                            <div class="property-value">
+                                XGBoost
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                """
             )
 
+            # ---------------------------------------------
+            # Explanation
+            # ---------------------------------------------
+
             st.caption(
-                "This is an estimated price generated by the "
-                "machine-learning model based on the provided "
-                "property information."
+                "This valuation is generated by the project's "
+                "machine-learning model using the property "
+                "information provided above."
             )
 
         except Exception as error:
